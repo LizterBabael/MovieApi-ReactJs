@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import SearchIcon from './search.svg'
+import "./App.css";
+import MovieCard from "./MovieCard";
+import Movies from "./Movies";
+import Login from "./Login";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Register from "./Register";
 
-function App() {
+
+
+const App = () => {
+   
+  const [form, setForm] = useState("login");
+
+
+  const validateForm = (forms) => {
+   setForm(forms)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div> 
+     
+     <Router>
+     
+      <Routes>
+         
+         {
+          form === "login" ? <Route path="/" element={<Login  onFormSwitch={validateForm}/>}/> : <Route path="/" element={<Register onFormSwitch={validateForm}/>}/>
+         }
+         
+      
+     
+        <Route path="/movies" element={<Movies />} />
+      </Routes>
+    </Router>
+
+   </div>
+
+  )
+};
 
 export default App;
